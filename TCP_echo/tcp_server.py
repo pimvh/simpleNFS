@@ -19,8 +19,7 @@ async def server(ip, port):
         @param ip to run on 
         @param port to run on 
     """
-    server = await asyncio.start_server(
-        handle_echo, ip, port)
+    server = await asyncio.start_server(handle_echo, ip, port)
 
     addrs = ', '.join(str(sock.getsockname()) for sock in server.sockets)
     print(f'Serving on {addrs}')
