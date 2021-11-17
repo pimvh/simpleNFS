@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-import asyncio
-
-from tcp_echo.tcp_server import simpleserver
-
+from tcp_echo.tcp_server import EchoTCPSocket
 def main():
     try:
-        asyncio.run(simpleserver('127.0.0.1', '8888'))
+        s = EchoTCPSocket("127.0.0.1", 8888)
+        s.run()
     except KeyboardInterrupt:
         print('shutting down!')
 

@@ -16,7 +16,7 @@
 import struct
 
 class DatagramConnection:
-    def __init__(self,sock):
+    def __init__(self, sock):
         self.sock = sock
         self.buffer = b''
         
