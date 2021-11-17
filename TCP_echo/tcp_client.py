@@ -1,8 +1,11 @@
 import asyncio
 
-async def tcp_echo_client(message):
-    reader, writer = await asyncio.open_connection(
-        '127.0.0.1', 8888)
+async def tcp_echo_client(ip : str, port : int, message : str):
+    """ runs a tcp echo client 
+        @param ip to run on 
+        @message to send 
+    """
+    reader, writer = await asyncio.open_connection(ip, port)
 
     print(f'Send: {message!r}')
     writer.write(message.encode())
@@ -12,6 +15,3 @@ async def tcp_echo_client(message):
 
     print('Close the connection')
     writer.close()
-
-async def tcp_client():
-    asyncio.run(tcp_echo_client('Hello World!'))
