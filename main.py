@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-
 import asyncio
 
-from .TCP_echo import server
+from tcp_echo.tcp_server import simpleserver
 
 def main():
-    asyncio.run(server('127.0.0.1', '8888'))
+    try:
+        asyncio.run(simpleserver('127.0.0.1', '8888'))
+    except KeyboardInterrupt:
+        print('shutting down!')
 
 if __name__ == "__main__":
     main()

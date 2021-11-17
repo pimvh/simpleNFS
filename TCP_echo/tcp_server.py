@@ -14,7 +14,7 @@ async def handle_echo(reader, writer):
     print("Close the connection")
     writer.close()
 
-async def server(ip, port):
+async def simpleserver(ip, port):
     """ implements a basic TCP server that echos a message 
         @param ip to run on 
         @param port to run on 
