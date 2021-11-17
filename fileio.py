@@ -1,7 +1,7 @@
 
 class FileIO:
 
-    def read(self,filename,offset,length):
+    def read(self, filename : str, offset : int, length : int):
         """ Read data from a file.
         @param filename The file to read from.
         @param offset   The offset to start reading from.
@@ -10,7 +10,7 @@ class FileIO:
         """
         pass
         
-    def write(self,filename,offset,block):
+    def write(self,filename : str, offset : int, block : int):
         """ Write data to a file.
         @param filename The file to write to.
         @param offset   The offset to write at.
