@@ -19,7 +19,7 @@ class DatagramTCPClient(EchoTCPClient):
             raise ValueError('No Active Connection!')
 
         dgramlenbin= struct.pack("!I", len(dgram))
-        msg = dgramlenbin + bytearray(dgram, "utf-8")
+        msg = dgramlenbin + dgram
         self.sock.send(msg)
 
    
@@ -59,25 +59,26 @@ class DatagramTCPClient(EchoTCPClient):
         print(f'connecting to {self.ip} port {self.port}')
         self.sock = socket.create_connection((self.ip, self.port))
 
-        try:
-            print(f"sending message: {self.message}")
-            self.send(self.message)
+        # try:
+        print(f"sending message: {self.message}")
+        self.send(self.message)
 
-            amount_received = 0
-            amount_expected = len(self.message)
-            
-            while amount_received < amount_expected:
+        amount_received = 0
+        amount_expected = len(self.message)
+        
+        while amount_received < amount_expected:
 
-                data = self.recv()
-                amount_received += len(data)
+            data = self.recv()
+            amount_received += len(data)
 
-            if self.process_func:
-                self.process_func(data)
+        if self.process_func:
+            self.process_func(data)
 
-        except Exception as e:
-            print(e)
-        finally:
-            self.close()
+        # except Exception as e:
+        #     print('handling error!')
+        #     print(e)
+        # finally:
+        #     self.close()
      
     def close(self):
         """ close the connection properly """

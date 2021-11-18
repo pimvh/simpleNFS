@@ -16,7 +16,7 @@ class DatagramTCPServer(EchoTCPServer):
             raise ValueError('No Active Connection!')
 
         dgramlenbin = struct.pack("!I", len(dgram))
-        msg = dgramlenbin + bytearray(dgram, "utf-8")
+        msg = dgramlenbin + dgram
 
         print('sending message...')
         self.connection.send(msg)
@@ -80,4 +80,5 @@ class DatagramTCPServer(EchoTCPServer):
 
             except Exception as e:
                 print(e)
+                self.connection.close()
                 self.close()
