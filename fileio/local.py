@@ -1,4 +1,5 @@
 import os 
+from pathlib import Path
 
 class LocalImpl:
     def __init__(self) -> None:
@@ -30,7 +31,7 @@ class LocalImpl:
             return f.read(length)
 
         
-    def write(self, filename : str, offset : int, block : bytes, **kwargs):
+    def write(self, filename : str, offset : int, block : bytearray, **kwargs):
         """ Write data to a file.
         @param filename The file to write to.
         @param offset   The offset to write at.
@@ -38,8 +39,11 @@ class LocalImpl:
         @return The number of bytes written or -1 in case of error.
         """
 
-        # if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytes):
+        # if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytearray):
         #     raise TypeError('Please supply all parameter types correctly')
+
+        if not os.path.isfile(filename):
+            Path(filename).touch()
 
         # + mode creates file if it does not exist
         with open(filename, 'r+b') as f:
