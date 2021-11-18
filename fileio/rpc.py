@@ -106,6 +106,9 @@ class RPCServer(RPCBase, LocalImpl):
             @param the incoming call 
         """
 
+        print(data)
+        print(type(data))
+
         made_call = self._decode(data)
 
         print(data)
