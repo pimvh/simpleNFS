@@ -16,7 +16,7 @@ def main():
     }
 
     try:
-        s = server.get(args.type)("145.100.104.42", 8888)
+        s = server.get(args.type)("0.0.0.0", 8888)
         s.run()
     except KeyboardInterrupt:
         print('shutting down!')
