@@ -28,7 +28,7 @@ class RPCBase:
     @staticmethod
     def _decode(data : str) -> dict:
         """ hex-decode and parse the dict from the json """
-        return json.load(data)
+        return json.loads(data)
 
 
 class RPCClient(RPCBase):
