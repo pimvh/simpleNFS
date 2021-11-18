@@ -66,13 +66,12 @@ class DatagramTCPServer(EchoTCPServer):
             try:
                 print(f'incoming connection from {client_address}...')
 
-                while True:
-                    data = self.recv()
-                    print(f'received {data}')
-                    
-                    # call the process function
-                    if self.process_func:
-                        self.process_func(data)
+                data = self.recv()
+                print(f'received {data}')
+                
+                # call the process function
+                if self.process_func:
+                    self.process_func(data)
 
             except Exception as e:
                 print(e)
