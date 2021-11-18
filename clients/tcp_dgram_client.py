@@ -57,7 +57,7 @@ class DatagramTCPClient(EchoTCPClient):
     def run(self):
         """ start the Datagram Socket """
         print(f'connecting to {self.ip} port {self.port}')
-        self.socket = socket.create_connection((self.ip, self.port))
+        self.sock = socket.create_connection((self.ip, self.port))
 
         try:
             print(f"sending message: {self.message}")
