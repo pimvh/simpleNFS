@@ -21,13 +21,13 @@ class RPCBase:
 
     @staticmethod
     def _encode(data : dict) -> hex:
-        """ dump the dict as a json, and hex-encode """
-        return json.dumps(data)
+        """ dump the dict as a json """
+        return bytearray(json.dumps(data), 'utf-8')
 
 
     @staticmethod
     def _decode(data : str) -> dict:
-        """ hex-decode and parse the dict from the json """
+        """ parse the dict from the json """
         return json.loads(data)
 
 
