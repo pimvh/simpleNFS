@@ -4,7 +4,7 @@ class LocalImpl:
     def __init__(self) -> None:
         pass
     
-    def read(self, filename : str, offset : int, length : int):
+    def read(self, filename : str, offset : int, length : int, **kwargs):
         """ Read data from a file.
         @param filename The file to read from.
         @param offset   The offset to start reading from.
@@ -26,7 +26,7 @@ class LocalImpl:
             return f.read(length)
 
         
-    def write(self, filename : str, offset : int, block : bytes):
+    def write(self, filename : str, offset : int, block : bytes, **kwargs):
         """ Write data to a file.
         @param filename The file to write to.
         @param offset   The offset to write at.
