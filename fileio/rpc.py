@@ -108,6 +108,9 @@ class RPCServer(RPCBase, LocalImpl):
 
         made_call = self._decode(data)
 
+        print(data)
+        print(type(data))
+
         if not 'call' in made_call:
             return 
 
