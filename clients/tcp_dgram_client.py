@@ -7,7 +7,7 @@ from clients.tcp_client import EchoTCPClient
 
 class DatagramTCPClient(EchoTCPClient):
     """ implements a datagram TCP Socket """
-    def __init__(self, ip: str, port: int, message : str, process_func : Callable) -> None:
+    def __init__(self, ip: str, port: int, message : str, process_func : Callable = None) -> None:
         super().__init__(ip, port, message)
         self.buffer = b''
         self.process_func = process_func
