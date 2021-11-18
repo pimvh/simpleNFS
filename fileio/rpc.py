@@ -106,16 +106,10 @@ class RPCServer(RPCBase, LocalImpl):
             @param the incoming call 
         """
 
-        print(data)
-        print(type(data))
-
         made_call = self._decode(data)
 
-        print(data)
-        print(type(data))
-
-        if not 'call' in made_call:
-            return 
+        if not 'type' in made_call:
+            return ''
 
         type_of_call = made_call.get('type', '')
 
