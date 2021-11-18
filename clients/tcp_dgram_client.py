@@ -7,10 +7,9 @@ from clients.tcp_client import EchoTCPClient
 
 class DatagramTCPClient(EchoTCPClient):
     """ implements a datagram TCP Socket """
-    def __init__(self, ip: str, port: int, message : str, process_func : Callable = None) -> None:
-        super().__init__(ip, port, message)
+    def __init__(self, ip: str, port: int) -> None:
+        super().__init__(ip, port)
         self.buffer = b''
-        self.process_func = process_func
 
         
     def send(self, dgram):
@@ -54,33 +53,30 @@ class DatagramTCPClient(EchoTCPClient):
         return data
         
    
-    def run(self):
+    def send_and_receive(self, message : str):
         """ start the Datagram Socket """
         print(f'connecting to {self.ip} port {self.port}')
         self.sock = socket.create_connection((self.ip, self.port))
 
-        # try:
-        print(f"sending message: {self.message}")
-        self.send(self.message)
+        try:
+            print(f"sending message: {self.message}")
+            self.send(self.message)
 
-        amount_received = 0
-        amount_expected = len(self.message)
-        
-        while amount_received < amount_expected:
+            amount_received = 0
+            amount_expected = len(self.message)
+            
+            while amount_received < amount_expected:
 
-            data = self.recv()
-            amount_received += len(data)
+                data = self.recv()
+                amount_received += len(data)
 
-            print(f'data received {data}')
+                print(f'data received {data}')
 
-        if self.process_func:
-            self.process_func(data)
-
-        # except Exception as e:
-        #     print('handling error!')
-        #     print(e)
-        # finally:
-        #     self.close()
+        except Exception as e:
+            print('handling error!')
+            print(e)
+        finally:
+            self.close()
      
     def close(self):
         """ close the connection properly """

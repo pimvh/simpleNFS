@@ -5,13 +5,9 @@ from fileio.local import LocalImpl
 
 class FileIOClient():
     def __init__(self, 
-                 ip : str, 
-                 port : int, 
                  remoteip : str, 
-                 remoteport, int) -> None:
-        self.rpc = RPCClient(ip, port)
-        
-        #TODO connect to somewhere
+                 remoteport: int) -> None:
+        self.rpc = RPCClient(remoteip, remoteport)
 
     def read(self, filename : str, offset : int, length : int) -> str:
         """ Read data from a file.

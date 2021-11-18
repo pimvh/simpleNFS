@@ -74,7 +74,7 @@ class DatagramTCPServer(EchoTCPServer):
                 
                 # call the process function
                 if self.process_func:
-                    self.process_func(data)
+                    data = self.process_func(data)
                 
                 self.send(data)
 

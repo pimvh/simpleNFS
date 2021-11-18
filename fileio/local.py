@@ -2,7 +2,7 @@ import os
 
 class LocalImpl:
     def __init__(self) -> None:
-        super().__init__()
+        pass
     
     def read(self, filename : str, offset : int, length : int):
         """ Read data from a file.
@@ -11,9 +11,6 @@ class LocalImpl:
         @param length   The number of bytes to read.
         @return The data read or '' in case of error.
         """
-
-        if not filename or not offset or not length:
-            raise ValueError('Please supply all parameter')
 
         if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(length, int):
             raise TypeError('Please supply all parameter types correctly')
@@ -29,7 +26,7 @@ class LocalImpl:
             return f.read(length)
 
         
-    def write(self, filename : str, offset : int, block : int):
+    def write(self, filename : str, offset : int, block : bytes):
         """ Write data to a file.
         @param filename The file to write to.
         @param offset   The offset to write at.
@@ -37,14 +34,11 @@ class LocalImpl:
         @return The number of bytes written or -1 in case of error.
         """
 
-        if not filename or not offset or not block:
-            raise ValueError('Please supply all parameter')
-
-        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, int):
+        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytes):
             raise TypeError('Please supply all parameter types correctly')
 
         # + mode creates file if it does not exist
-        with open(filename, 'wb+') as f:
+        with open(filename, 'rb+') as f:
 
             if not f.writable():
                 return -1

@@ -1,20 +1,22 @@
+#!/usr/bin/env python3
 import sys
+from fileio.rpc import RPCClient
 
-from fileio.local import LocalImpl as FileIOImpl
+def main():
+    rpc = RPCClient("145.100.104.42", 8888)
 
-if __name__ == "__main__":
-    fs = FileIOImpl()
-    
     lines = [b'Hallo\r\n', b'Hoe gaat het?\r\n', b'CU\r\n']
     offset = 0
     for line in lines:
-        ret = fs.write("file.txt",offset,line)
+        ret = rpc.read("file.txt",offset,line)
         print ("write returns",ret,"is same as line length?",len(line) == ret,file=sys.stderr)
         offset += len(line)
-    
+
     offset = 0
     for line in lines:
-        ret = fs.read("file.txt",offset,len(line))
+        ret = rpc.write("file.txt",offset,len(line))
         print ("read returns original line?",line == ret,file=sys.stderr)
         offset += len(line)
-        
+
+if __name__ == "__main__":
+    main()

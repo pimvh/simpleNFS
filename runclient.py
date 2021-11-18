@@ -19,8 +19,8 @@ def main():
     }
 
     try:
-        c = client.get(args.type)("145.100.104.42", 8888, 'Hello World!')
-        c.run()
+        c = client.get(args.type)("145.100.104.42", 8888)
+        c.send_and_receive('Hello World!')
     except KeyboardInterrupt:
         print('shutting down!')
         c.close()
