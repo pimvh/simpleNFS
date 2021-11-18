@@ -66,5 +66,7 @@ class EchoTCPServer():
         
     def close(self):
         """ close the connection properly """
-        self.connection.close()
+        
+        if self.connection:
+            self.connection.close()
         self.sock.close()
