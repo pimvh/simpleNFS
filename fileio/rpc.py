@@ -125,7 +125,7 @@ class RPCServer(RPCBase, LocalImpl):
             @param read RPC call 
         """
 
-        if self.required_keys.get('read') - call:
+        if self.required_keys.get('read') - call.keys():
             raise ValueError('Call does not have the required parameters')
 
         return dict(id=call.get('id'),
@@ -137,7 +137,7 @@ class RPCServer(RPCBase, LocalImpl):
             @param write RPC call
         """
 
-        if self.required_keys.get('write') - call:
+        if self.required_keys.get('write') - call.keys():
             raise ValueError('Call does not have the required parameters')
 
         return dict(id=call.get('id'),
