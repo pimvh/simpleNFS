@@ -46,16 +46,16 @@ class EchoTCPServer():
                 print(f'incoming connection from {client_address}...')
                 # Receive the data in small chunks and retransmit it
 
-                while True:
-                    data = self.recv(16)
-                    print(f'received {data}')
-                    
-                    if data:
-                        print('reply the same!')
-                        self.send(data)
-                    else:
-                        print('no more data.')
-                        break
+                data = self.recv(16)
+                print(f'received {data}')
+                
+                if data:
+                    print('reply the same!')
+                    self.send(data)
+                else:
+                    print('no more data.')
+                    break
+
             except Exception as e:
                 print(e)
                 self.close()
