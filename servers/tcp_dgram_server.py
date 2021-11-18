@@ -18,6 +18,7 @@ class DatagramTCPServer(EchoTCPServer):
         dgramlenbin = struct.pack("!I", len(dgram))
         msg = dgramlenbin + bytearray(dgram, "utf-8")
         self.connection.sendall(msg)
+        self.connection.close()
 
    
     def recv(self):
@@ -44,8 +45,6 @@ class DatagramTCPServer(EchoTCPServer):
 
         while len(self.buffer) < n:
             data = self.connection.recv(1024)
-
-            print(f"{data=}")
             if not len(data):
                 return ''
             self.buffer = self.buffer + data
