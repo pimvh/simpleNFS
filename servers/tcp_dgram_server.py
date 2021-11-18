@@ -4,7 +4,7 @@ from .tcp_server import EchoTCPServer
 
 class DatagramTCPServer(EchoTCPServer):
     """ implements a datagram TCP Socket """
-    def __init__(self, ip: str, port: int, process_func : function) -> None:
+    def __init__(self, ip: str, port: int, process_func : function = None) -> None:
         super().__init__(ip, port)
         self.buffer = b''
         self.process_func = process_func
@@ -70,7 +70,8 @@ class DatagramTCPServer(EchoTCPServer):
                     print(f'received {data}')
                     
                     # call the process function
-                    self.process_func(data)
+                    if self.process_func:
+                        self.process_func(data)
 
             except Exception as e:
                 print(e)

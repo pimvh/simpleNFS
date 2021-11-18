@@ -63,14 +63,24 @@ class DatagramTCPClient(EchoTCPClient):
 
             amount_received = 0
             amount_expected = len(self.message)
+
+            data = ''
             
             while amount_received < amount_expected:
                 data = self.recv()
                 amount_received += len(data)
                 print(f"received: {data}")
 
+            if self.process_func:
+                self.process_func(data)
+
         except Exception as e:
             print(e)
         finally:
             self.close()
+     
+    def close(self):
+        """ close the connection properly """
+        self.connection.close()
+
             
