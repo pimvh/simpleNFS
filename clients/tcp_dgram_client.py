@@ -1,12 +1,14 @@
 import socket 
 import struct
 
+from typing import Callable
+
 from clients.tcp_client import EchoTCPClient
 
 class DatagramTCPClient(EchoTCPClient):
     """ implements a datagram TCP Socket """
-    def __init__(self, ip: str, port: int, process_func : function) -> None:
-        super().__init__(ip, port)
+    def __init__(self, ip: str, port: int, message : str, process_func : Callable) -> None:
+        super().__init__(ip, port, message)
         self.buffer = b''
         self.process_func = process_func
 
@@ -18,13 +20,13 @@ class DatagramTCPClient(EchoTCPClient):
 
         dgramlenbin= struct.pack("!I", len(dgram))
         msg = dgramlenbin + bytearray(dgram, "utf-8")
-        self.connection.send(msg)
+        self.sock.send(msg)
 
    
     def recv(self):
         """ receive a number of bytes """
         
-        if not self.connection:
+        if not self.sock:
             raise ValueError('No Active Connection!')
 
         dgramlenbin = self._recvn(4)
@@ -41,7 +43,7 @@ class DatagramTCPClient(EchoTCPClient):
         """ receive the nth fragment """ 
 
         while len(self.buffer) < n:
-            data = self.connection.recv(1024)
+            data = self.sock.recv(1024)
             if not len(data):
                 return ''
             self.buffer = self.buffer + data
@@ -81,6 +83,6 @@ class DatagramTCPClient(EchoTCPClient):
      
     def close(self):
         """ close the connection properly """
-        self.connection.close()
+        self.sock.close()
 
             
