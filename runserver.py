@@ -6,7 +6,7 @@ from servers.tcp_server import EchoTCPServer
 def main():
     parser = argparse.ArgumentParser(description='run a client server.')
     parser.add_argument('type', choices=['echo', 'datagram'],
-                        description="type of server to run")
+                        help="type of server to run")
 
     args = parser.parse_args()
 

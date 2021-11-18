@@ -9,7 +9,7 @@ def main():
 
     parser = argparse.ArgumentParser(description='run a client server.')
     parser.add_argument('type', choices=['echo', 'datagram'],
-                        description="type of client to run")
+                        help="type of client to run")
 
     args = parser.parse_args()
 
