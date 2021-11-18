@@ -12,8 +12,12 @@ class LocalImpl:
         @return The data read or '' in case of error.
         """
 
-        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(length, int):
-            raise TypeError('Please supply all parameter types correctly')
+        # if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(length, int):
+
+        #     filename = str(filename)
+        #     offset = int(offset)
+        #     length = int(length)
+        #     # raise TypeError('Please supply all parameter types correctly')
 
         if not os.path.isfile(filename):
             return ''
@@ -34,8 +38,8 @@ class LocalImpl:
         @return The number of bytes written or -1 in case of error.
         """
 
-        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytes):
-            raise TypeError('Please supply all parameter types correctly')
+        # if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytes):
+        #     raise TypeError('Please supply all parameter types correctly')
 
         # + mode creates file if it does not exist
         with open(filename, 'rb+') as f:
