@@ -82,7 +82,7 @@ class RPCServer(RPCBase, LocalImpl):
             @params port to run on
         """
 
-        self.socket = DatagramTCPServer(ip, port, self.make_reply())
+        self.socket = DatagramTCPServer(ip, port, self.make_reply)
 
         self.implemented_calls = {
             'read'  : self.handle_read,
