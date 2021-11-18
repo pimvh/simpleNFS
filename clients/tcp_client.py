@@ -7,7 +7,7 @@ import socket
 
 class EchoTCPClient(): 
     """ class that implements a simple Echo TCP socket Client """
-    def __init__(self, ip : str, port : int, message) -> None:
+    def __init__(self, ip : str, port : int, message : str) -> None:
         """ initialize the echo TCP socket 
             @param ip adress to run on 
             @param port to run on 
@@ -16,7 +16,7 @@ class EchoTCPClient():
 
         self.ip = ip 
         self.port = port 
-        self.message = message
+        self.message = message.encode()
 
     def send(self, data):
         """ send data over the socket """
@@ -32,7 +32,7 @@ class EchoTCPClient():
     def run(self):
         """ start the simple Socket """
         print(f'connecting to {self.ip} port {self.port}')
-        self.connection = socket.create_connection((self.ip, self.port))
+        self.sock = socket.create_connection((self.ip, self.port))
 
         try:
             print(f"sending message: {self.message}")
@@ -54,4 +54,4 @@ class EchoTCPClient():
         
     def close(self):
         """ close the connection properly """
-        self.connection.close()
+        self.sock.close()

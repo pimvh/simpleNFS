@@ -51,6 +51,7 @@ class EchoTCPServer():
                     print(f'received {data}')
                     
                     if data:
+                        print('reply the same!')
                         self.send(data)
                     else:
                         print('no more data.')
