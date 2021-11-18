@@ -15,9 +15,9 @@ class DatagramTCPServer(EchoTCPServer):
         if not self.connection:
             raise ValueError('No Active Connection!')
 
-        dgramlenbin= struct.pack("!I", len(dgram))
+        dgramlenbin = struct.pack("!I", len(dgram))
         msg = dgramlenbin + bytearray(dgram, "utf-8")
-        self.connection.send(msg)
+        self.connection.sendall(msg)
 
    
     def recv(self):
@@ -39,8 +39,13 @@ class DatagramTCPServer(EchoTCPServer):
     def _recvn(self, n):
         """ receive the nth fragment """ 
 
+        print('entered recv_')
+        print(self.buffer)
+
         while len(self.buffer) < n:
             data = self.connection.recv(1024)
+
+            print(f"{data=}")
             if not len(data):
                 return ''
             self.buffer = self.buffer + data

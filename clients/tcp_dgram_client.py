@@ -66,9 +66,12 @@ class DatagramTCPClient(EchoTCPClient):
             amount_received = 0
             amount_expected = len(self.message)
 
+            print(amount_expected)
+
             data = ''
             
             while amount_received < amount_expected:
+
                 data = self.recv()
                 amount_received += len(data)
                 print(f"received: {data}")

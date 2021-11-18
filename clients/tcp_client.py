@@ -57,5 +57,4 @@ class EchoTCPClient():
 
     def close(self):
         """ close the connection properly """
-        self.connection.close()
         self.sock.close()
