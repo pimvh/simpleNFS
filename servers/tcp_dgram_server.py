@@ -40,7 +40,7 @@ class DatagramTCPServer(EchoTCPServer):
         """ receive the nth fragment """ 
 
         while len(self.buffer) < n:
-            data = self.sock.recv(1024)
+            data = self.connection.recv(1024)
             if not len(data):
                 return ''
             self.buffer = self.buffer + data
