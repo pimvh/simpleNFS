@@ -61,7 +61,7 @@ class DatagramTCPClient(EchoTCPClient):
 
         try:
             print(f"sending message: {self.message}")
-            self.sock.sendall(self.message)
+            self.send(self.message)
 
             amount_received = 0
             amount_expected = len(self.message)

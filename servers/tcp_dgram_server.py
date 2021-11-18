@@ -17,7 +17,7 @@ class DatagramTCPServer(EchoTCPServer):
 
         dgramlenbin = struct.pack("!I", len(dgram))
         msg = dgramlenbin + bytearray(dgram, "utf-8")
-        self.connection.sendall(msg)
+        self.connection.send(msg)
         self.connection.close()
 
    
