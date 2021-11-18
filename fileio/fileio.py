@@ -17,27 +17,21 @@ class FileIOClient():
         @return The data read or '' in case of error.
         """
 
-        if not filename or not offset or not length:
-            raise ValueError('Please supply all parameter')
-
         if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(length, int):
             raise TypeError('Please supply all parameter types correctly')
 
         return self.rpc.read(filename=filename, offset=offset, length=length)
        
         
-    def write(self, filename : str, offset : int, block : int):
+    def write(self, filename : str, offset : int, block : bytes):
         """ Write data to a file.
         @param filename The file to write to.
         @param offset   The offset to write at.
         @param block    The block of data to write.
         @return The number of bytes written or -1 in case of error.
         """
-        
-        if not filename or not offset or not block:
-            raise ValueError('Please supply all parameter')
 
-        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, int):
+        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytes):
             raise TypeError('Please supply all parameter types correctly')
 
         return self.rpc.write(filename=filename, offset=offset, block=block)
