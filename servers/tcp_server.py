@@ -19,6 +19,7 @@ class EchoTCPServer():
         self.port = port 
         self.connection = None
 
+
     def send(self, data):
         """ send data over the socket """
         if not self.connection:
@@ -26,10 +27,12 @@ class EchoTCPServer():
         
         self.connection.send(data)
 
+
     def recv(self, bytes=16):
         """ receive data from the socket """
         return self.connection.recv(bytes)
-    
+
+
     def run(self):
         """ start the simple Socket """
         print(f'starting up on {self.ip} port {self.port}')
@@ -59,7 +62,9 @@ class EchoTCPServer():
             except Exception as e:
                 print(e)
                 self.close()
+    
         
     def close(self):
         """ close the connection properly """
         self.connection.close()
+        self.sock.close()

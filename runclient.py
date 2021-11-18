@@ -23,6 +23,7 @@ def main():
         c.run()
     except KeyboardInterrupt:
         print('shutting down!')
+        c.close()
 
 if __name__ == "__main__":
     main()
