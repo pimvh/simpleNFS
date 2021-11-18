@@ -9,7 +9,7 @@ class FileIOClient():
                  remoteport: int) -> None:
         self.rpc = RPCClient(remoteip, remoteport)
 
-    def read(self, filename : str, offset : int, length : int) -> str:
+    def read(self, filename : str, offset : int, length : bytes) -> str:
         """ Read data from a file.
         @param filename The file to read from.
         @param offset   The offset to start reading from.
@@ -17,10 +17,10 @@ class FileIOClient():
         @return The data read or '' in case of error.
         """
 
-        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(length, int):
+        if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(length, bytes):
             raise TypeError('Please supply all parameter types correctly')
 
-        return self.rpc.read(filename=filename, offset=offset, length=length)
+        return self.rpc.read(filename=filename, offset=offset, length=str(length))
        
         
     def write(self, filename : str, offset : int, block : bytes):
@@ -34,7 +34,7 @@ class FileIOClient():
         if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytes):
             raise TypeError('Please supply all parameter types correctly')
 
-        return self.rpc.write(filename=filename, offset=offset, block=block)
+        return self.rpc.write(filename=filename, offset=offset, block=str(block))
 
 
 class FileIOServer(LocalImpl):

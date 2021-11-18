@@ -1,5 +1,7 @@
 import json
 import uuid
+import codecs
+
 from clients.tcp_dgram_client import DatagramTCPClient
 
 from fileio.local import LocalImpl
@@ -20,13 +22,13 @@ class RPCBase:
     @staticmethod
     def _encode(data : dict) -> hex:
         """ dump the dict as a json, and hex-encode """
-        return json.dumps(data).encode('hex')
+        return json.dumps(data)
 
 
     @staticmethod
-    def _decode(bytes : str) -> dict:
+    def _decode(data : str) -> dict:
         """ hex-decode and parse the dict from the json """
-        return json.load(str(bytes))
+        return json.load(data)
 
 
 class RPCClient(RPCBase):
@@ -55,7 +57,7 @@ class RPCClient(RPCBase):
         """
 
         reply = self._send_call(self._encode(dict(type='read',
-                                             id=uuid.uuid4(),
+                                             id=str(uuid.uuid4()),
                                              **kwargs)))
 
         return reply.get('data', '')
@@ -67,7 +69,7 @@ class RPCClient(RPCBase):
         """
 
         reply = self._send_call(self._encode(dict(type='write',
-                                             id=uuid.uuid4(),
+                                             id=str(uuid.uuid4()),
                                              **kwargs)))
 
         return reply.get('data', '')

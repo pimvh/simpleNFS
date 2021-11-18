@@ -22,7 +22,7 @@ class DatagramTCPServer(EchoTCPServer):
         self.connection.send(msg)
         self.connection.close()
 
-   
+ 
     def recv(self):
         """ receive a number of bytes """
         
@@ -66,19 +66,20 @@ class DatagramTCPServer(EchoTCPServer):
             print('accepting connection....')
             self.connection, client_address = self.sock.accept()
 
-            try:
-                print(f'incoming connection from {client_address}...')
+            # try:
+            print(f'incoming connection from {client_address}...')
 
-                data = self.recv()
-                print(f'received {data}')
-                
-                # call the process function
-                if self.process_func:
-                    data = self.process_func(data)
-                
-                self.send(data)
+            data = self.recv()
+            print(f'received {data}')
+            
+            # call the process function
+            if self.process_func:
+                data = self.process_func(data)
+            
+            self.send(data)
 
-            except Exception as e:
-                print(e)
-                self.connection.close()
-                self.close()
+            # except Exception as e:
+            #     print(e)
+            # finally:
+            #     self.connection.close()
+            #     self.close()
