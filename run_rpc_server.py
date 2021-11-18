@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-from fileio.rpc import RPCServer
+from fileio.fileio import FileIOServer
 
 def main():
     try:
-        s = RPCServer("0.0.0.0", 8888)
+        s = FileIOServer("0.0.0.0", 8888)
         s.run()
     except KeyboardInterrupt:
         print('shutting down!')
-        s.close()
+        s.stop()
 
 if __name__ == "__main__":
     main()

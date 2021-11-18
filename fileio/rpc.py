@@ -37,7 +37,7 @@ class RPCClient(RPCBase):
         """ @params ip to run on 
             @params port to run on
         """
-        super().__init__(ip, port)
+        super().__init__()
         self.socket : DatagramTCPClient = DatagramTCPClient(ip, port)
     
 

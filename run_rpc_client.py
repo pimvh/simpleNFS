@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import sys
-from fileio.rpc import RPCClient
+from fileio.fileio import FileIOClient
 
 def main():
-    rpc = RPCClient("145.100.104.42", 8888)
+    rpc = FileIOClient("145.100.104.42", 8888)
 
     lines = [b'Hallo\r\n', b'Hoe gaat het?\r\n', b'CU\r\n']
     offset = 0

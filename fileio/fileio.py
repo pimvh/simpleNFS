@@ -51,3 +51,7 @@ class FileIOServer(LocalImpl):
     def run(self):
         """ start the server """
         self.rpc.run()
+
+    def stop(self):
+        """ stop the server """
+        self.rpc.stop()
