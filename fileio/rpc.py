@@ -101,10 +101,12 @@ class RPCServer(RPCBase, LocalImpl):
         self.socket.close()
 
 
-    def make_reply(self, made_call : dict) -> None:
+    def make_reply(self, data) -> None:
         """ figure out what to reply based on incoming TCP data 
             @param the incoming call 
         """
+
+        made_call = self._decode(data)
 
         if not 'call' in made_call:
             return 
