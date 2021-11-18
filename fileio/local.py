@@ -42,7 +42,7 @@ class LocalImpl:
         #     raise TypeError('Please supply all parameter types correctly')
 
         # + mode creates file if it does not exist
-        with open(filename, 'rb+') as f:
+        with open(filename, 'wrb+') as f:
 
             if not f.writable():
                 return -1
