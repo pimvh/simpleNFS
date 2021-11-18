@@ -8,13 +8,13 @@ def main():
     lines = [b'Hallo\r\n', b'Hoe gaat het?\r\n', b'CU\r\n']
     offset = 0
     for line in lines:
-        ret = rpc.read("file.txt",offset,line)
+        ret = rpc.write("file.txt",offset,line)
         print ("write returns",ret,"is same as line length?",len(line) == ret,file=sys.stderr)
         offset += len(line)
 
     offset = 0
     for line in lines:
-        ret = rpc.write("file.txt",offset,len(line))
+        ret = rpc.read("file.txt",offset,len(line))
         print ("read returns original line?",line == ret,file=sys.stderr)
         offset += len(line)
 

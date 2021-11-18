@@ -58,28 +58,29 @@ class DatagramTCPClient(EchoTCPClient):
         print(f'connecting to {self.ip} port {self.port}')
         self.sock = socket.create_connection((self.ip, self.port))
 
-        try:
-            print(f"sending message: {message}")
-            self.send(message)
+        # try:
+        print(f"sending message: {message}")
+        self.send(message)
 
-            amount_received = 0
-            amount_expected = len(message)
+        amount_received = 0
+        amount_expected = len(message)
 
-            data = ''
-            
-            while amount_received < amount_expected:
+        data = ''
+        
+        while amount_received < amount_expected:
 
-                data += str(self.recv())          
-                amount_received += len(data)
+            data += str(self.recv())          
+            amount_received += len(data)
 
-                print(f'data received {data}')
+            print(f'data received {data}')
 
-            return data
-        except Exception as e:
-            print('handling error!')
-            print(e)
-        finally:
-            self.close()
+        return data
+        
+        # except Exception as e:
+        #     print('handling error!')
+        #     print(e)
+        # finally:
+        #     self.close()
      
     def close(self):
         """ close the connection properly """

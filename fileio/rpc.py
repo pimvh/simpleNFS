@@ -22,7 +22,7 @@ class RPCBase:
     @staticmethod
     def _encode(data : dict) -> hex:
         """ dump the dict as a json """
-        return bytearray(json.dumps(data), 'utf-8')
+        return json.dumps(data)
 
 
     @staticmethod
@@ -48,7 +48,7 @@ class RPCClient(RPCBase):
             returns an answer to that call """
 
         data = self.socket.send_and_receive(call)
-        return json.loads(str(data))
+        return json.loads(data)
 
 
     def read(self, **kwargs):
