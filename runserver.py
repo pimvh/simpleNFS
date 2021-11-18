@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-from tcp_echo.tcp_server import EchoTCPSocket
+from servers.tcp_server import EchoTCPServer
 def main():
     try:
-        s = EchoTCPSocket("127.0.0.1", 8888)
+        s = EchoTCPServer("127.0.0.1", 8888)
         s.run()
     except KeyboardInterrupt:
         print('shutting down!')

@@ -1,7 +1,7 @@
 import json
 
-from .rpc import RPCClient, RPCServer
-from .local import LocalImpl
+from fileio.rpc import RPCClient, RPCServer
+from fileio.local import LocalImpl
 
 class FileIOClient():
     def __init__(self, 
@@ -28,7 +28,7 @@ class FileIOClient():
             raise TypeError('Please supply all parameter types correctly')
 
         return self.rpc.read(filename=filename, offset=offset, length=length)
-        
+       
         
     def write(self, filename : str, offset : int, block : int):
         """ Write data to a file.
@@ -51,3 +51,7 @@ class FileIOServer(LocalImpl):
     def __init__(self, ip : str, port : int) -> None:
         super().__init__()
         self.rpc = RPCServer(ip, port)
+
+    def run(self):
+        """ start the server """
+        self.rpc.run()

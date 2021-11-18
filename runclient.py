@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from tcp_echo.tcp_client import tcp_echo_client
+from clients.tcp_client import EchoTCPClient
 
 def main():
     try:
-        tcp_echo_client("127.0.0.1", 8888, 'Hello World!')
+        EchoTCPClient("127.0.0.1", 8888, 'Hello World!')
     except KeyboardInterrupt:
         print('shutting down!')
 

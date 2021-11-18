@@ -6,7 +6,7 @@
 
 import socket
 
-class EchoTCPSocket(): 
+class EchoTCPServer():
     """ class that implements a simple Echo TCP socket """
     def __init__(self, ip : str, port : int) -> None:
         """ initialize the echo TCP socket 

@@ -1,17 +1,19 @@
+import socket 
 import struct
 
-from .tcp_server import EchoTCPServer 
+from clients.tcp_client import EchoTCPClient
 
-class DatagramTCPServer(EchoTCPServer):
+class DatagramTCPClient(EchoTCPClient):
     """ implements a datagram TCP Socket """
     def __init__(self, ip: str, port: int, process_func : function) -> None:
         super().__init__(ip, port)
         self.buffer = b''
         self.process_func = process_func
+
         
     def send(self, dgram):
         """ send a number of bytes """
-        if not self.connection:
+        if not self.sock:
             raise ValueError('No Active Connection!')
 
         dgramlenbin= struct.pack("!I", len(dgram))
@@ -48,30 +50,27 @@ class DatagramTCPServer(EchoTCPServer):
         self.buffer = self.buffer[n:]
 
         return data
-
-    
+        
+   
     def run(self):
         """ start the Datagram Socket """
-        print(f'starting up on {self.ip} port {self.port}')
-        self.sock.bind((self.ip, self.port))
-        self.sock.listen(1)
+        print(f'connecting to {self.ip} port {self.port}')
+        self.socket = socket.create_connection((self.ip, self.port))
 
-        self.connection = None
+        try:
+            print(f"sending message: {self.message}")
+            self.sock.sendall(self.message)
 
-        while True: 
-            print('accepting connection....')
-            self.connection, client_address = self.sock.accept()
+            amount_received = 0
+            amount_expected = len(self.message)
+            
+            while amount_received < amount_expected:
+                data = self.recv()
+                amount_received += len(data)
+                print(f"received: {data}")
 
-            try:
-                print(f'incoming connection from {client_address}...')
-
-                while True:
-                    data = self.recv()
-                    print(f'received {data}')
-                    
-                    # call the process function
-                    self.process_func(data)
-
-            except Exception as e:
-                print(e)
-                self.close()
+        except Exception as e:
+            print(e)
+        finally:
+            self.close()
+            

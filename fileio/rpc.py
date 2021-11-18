@@ -2,19 +2,18 @@ import json
 import uuid
 
 from fileio.local import LocalImpl
-from ..servers.tcp_dgram_server import DatagramTCPSocket
-
+from servers.tcp_dgram_server import DatagramTCPServer
 
 
 class RPCBase:
     def __init__(self, ip, port, process_func) -> None:
-        self.socket = DatagramTCPSocket(ip, port, process_func)
+        self.socket = DatagramTCPServer(ip, port, process_func)
 
         default_keys = {'type', 'id', 'filename', 'offset'}
 
         self.required_keys = {
             'read'  : default_keys & {'length'},
-            'write' : default_keys & {'block'}
+            'write' : default_keys & {'block'},
         }
 
 
@@ -54,15 +53,12 @@ class RPCClient(RPCBase):
         """ @params ip to run on 
             @params port to run on
         """
-
         super().__init__(ip, port)
+
 
     def read(self, **kwargs):
         """ send data to the socket, and decode the reply
-             @param filename The file to read from.
-             @param offset   The offset to start reading from.
-             @param length   The number of bytes to read.
-             @return The data read or '' in case of error.
+            @param dict with the necessary write params
         """
 
         self._send_call(self._encode(dict(type='read',
@@ -73,13 +69,10 @@ class RPCClient(RPCBase):
 
 
     def write(self, **kwargs):
-        """ send the write data to the file
-        @param filename The file to write to.
-        @param offset   The offset to write at.
-        @param block    The block of data to write.
-        @return The number of bytes written or -1 in case of error.
+        """ send data to the socket, and decode the reply
+            @param dict with the necessary write params
         """
-        
+
         self._send_call(self._encode(dict(type='write',
                                           id=uuid.uuid4(),
                                           **kwargs)))
@@ -103,9 +96,11 @@ class RPCServer(RPCBase, LocalImpl):
             'write' : self.write_reply,
         }
     
+
     def run(self) -> None:
         """ start the underlying socket """
         self.socket.run()
+
 
     def make_reply(self, made_call : dict) -> None:
         """ figure out what to reply based on incoming TCP data 
