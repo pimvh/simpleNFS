@@ -83,6 +83,7 @@ class RPCServer(RPCBase, LocalImpl):
         """ @params ip to run on 
             @params port to run on
         """
+        super().__init__()
 
         self.socket = DatagramTCPServer(ip, port, self.make_reply)
 
