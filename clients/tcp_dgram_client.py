@@ -71,6 +71,8 @@ class DatagramTCPClient(EchoTCPClient):
             data = self.recv()
             amount_received += len(data)
 
+            print(f'data received {data}')
+
         if self.process_func:
             self.process_func(data)
 

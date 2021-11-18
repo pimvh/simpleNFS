@@ -1,12 +1,11 @@
 import sys
 
-from local import LocalImpl as FileIOImpl
-
+from fileio.local import LocalImpl as FileIOImpl
 
 if __name__ == "__main__":
     fs = FileIOImpl()
     
-    lines = [b'Hallo\r\n', b'Hoe gaat het?\r\n', b'CU\r\n']
+    lines = ['Hallo\r\n', 'Hoe gaat het?\r\n', 'CU\r\n']
     offset = 0
     for line in lines:
         ret = fs.write("file.txt",offset,line)
