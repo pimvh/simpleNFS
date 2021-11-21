@@ -34,7 +34,7 @@ class FileIOClient():
         if not isinstance(filename, str) or not isinstance(offset, int) or not isinstance(block, bytes):
             raise TypeError('Please supply all parameter types correctly')
 
-        return self.rpc.write(filename=filename, offset=offset, block=str(block))
+        return self.rpc.write(filename=filename, offset=offset, block=block)
 
 
 class FileIOServer(LocalImpl):
