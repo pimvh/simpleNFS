@@ -65,7 +65,7 @@ class DatagramTCPClient(EchoTCPClient):
         amount_received = 0
         amount_expected = len(message)
 
-        data = b''
+        data = bytes('', 'UTF-8')
         
         while amount_received < amount_expected:
 

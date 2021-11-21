@@ -22,14 +22,23 @@ class RPCBase:
     @staticmethod
     def _encode(data : dict) -> hex:
         """ dump the dict as a json """
+
+        if 'block' in data:
+            data['block'] = data['block'].hex()
+
         return json.dumps(data)
 
 
     @staticmethod
     def _decode(data : bytes) -> dict:
         """ parse the dict from the json """
-        return json.loads(data)
-
+        
+        data = json.loads(data)
+        
+        if 'block' in data:
+            data['block'] = bytes.fromhex(data['block']).decode("ascii")
+        
+        return data
 
 class RPCClient(RPCBase):
     """ implementation of an RPC client, depends on
@@ -71,7 +80,7 @@ class RPCClient(RPCBase):
                                                   id=str(uuid.uuid4()),
                                                   **kwargs)))
 
-        return reply.get('data', '')
+        return reply.get('written', '')
 
 
 class RPCServer(RPCBase, LocalImpl):
@@ -128,7 +137,7 @@ class RPCServer(RPCBase, LocalImpl):
             raise ValueError('Call does not have the required parameters')
 
         return dict(id=call.get('id'),
-                    data=str(self.read(**call)))
+                    data=self.read(**call))
 
     
     def handle_write(self, call : dict) -> None:
@@ -140,4 +149,4 @@ class RPCServer(RPCBase, LocalImpl):
             raise ValueError('Call does not have the required parameters')
 
         return dict(id=call.get('id'),
-                    data=self.write(**call))
+                    written=self.write(**call))
