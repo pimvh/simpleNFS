@@ -20,11 +20,12 @@ class RPCBase:
 
 
     @staticmethod
-    def _encode(data : dict) -> hex:
+    def _encode(data : dict) -> str:
         """ dump the dict as a json """
 
         if 'block' in data:
-            data['block'] = str(codecs.encode(bytes(data['block'], 'utf-8'), 'hex'))
+            data['block'] = data['block'].hex()
+            print(data['block'])
 
         return json.dumps(data)
 
@@ -36,7 +37,7 @@ class RPCBase:
         data = json.loads(data)
         
         if 'block' in data:
-            data['block'] = bytes.fromhex(data['block']).decode("utf-8")
+            data['block'] = bytes.fromhex(data['block'])
         
         return data
 
