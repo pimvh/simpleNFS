@@ -38,7 +38,7 @@ class RPCBase:
         
         if 'block' in data:
             data['block'] = bytes.fromhex(data['block'])
-        assert isinstance(data['block'], bytes)
+            assert isinstance(data['block'], bytes)
         
         return data
 
