@@ -21,11 +21,11 @@ class LocalImpl:
         #     # raise TypeError('Please supply all parameter types correctly')
 
         if not os.path.isfile(filename):
-            return ''
+            return bytes('')
 
         with open(filename, 'rb') as f:
             if not f.seekable():
-                return ''
+                return bytes('')
 
             f.seek(offset)
             return f.read(length)

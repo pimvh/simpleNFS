@@ -24,7 +24,7 @@ class RPCBase:
         """ dump the dict as a json """
 
         if 'block' in data:
-            data['block'] = data['block'].hex()
+            data['block'] = str(codecs.encode(bytes(data['block'], 'utf-8'), 'hex'))
 
         return json.dumps(data)
 
@@ -36,7 +36,7 @@ class RPCBase:
         data = json.loads(data)
         
         if 'block' in data:
-            data['block'] = bytes.fromhex(data['block']).decode("ascii")
+            data['block'] = bytes.fromhex(data['block']).decode("utf-8")
         
         return data
 
