@@ -52,6 +52,6 @@ class LocalImpl:
                 return -1
 
             f.seek(offset)
-            f.write(block)
+            f.write(bytearray(block))
 
             return len(block)
