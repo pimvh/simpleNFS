@@ -1,6 +1,5 @@
 import json
 import uuid
-import codecs
 
 from clients.tcp_dgram_client import DatagramTCPClient
 
@@ -75,9 +74,14 @@ class RPCClient(RPCBase):
             @param dict with the necessary write params
         """
 
+        id = str(uuid.uuid4())
+
         reply = self._send_call(self._encode(dict(type='read',
-                                                  id=str(uuid.uuid4()),
+                                                  id=id,
                                                   **kwargs)))
+
+        if not reply.get('id') == id:
+            raise ValueError('Received reply with other UUID!')
 
         return reply.get('data', '')
 
@@ -87,9 +91,14 @@ class RPCClient(RPCBase):
             @param dict with the necessary write params
         """
 
+        id = str(uuid.uuid4())
+
         reply = self._send_call(self._encode(dict(type='write',
-                                                  id=str(uuid.uuid4()),
+                                                  id=id,
                                                   **kwargs)))
+
+        if not reply.get('id') == id:
+            raise ValueError('Received reply with other UUID!')
 
         return reply.get('written', '')
 
