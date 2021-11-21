@@ -31,7 +31,7 @@ class DatagramTCPClient(EchoTCPClient):
         dgramlenbin = self._recvn(4)
         
         if not len(dgramlenbin):
-            return ''
+            return b''
         
         (dgramlen,) = struct.unpack("!I", dgramlenbin)
         
@@ -44,13 +44,13 @@ class DatagramTCPClient(EchoTCPClient):
         while len(self.buffer) < n:
             data = self.sock.recv(1024)
             if not len(data):
-                return ''
+                return b''
             self.buffer = self.buffer + data
             
         data = self.buffer[:n]
         self.buffer = self.buffer[n:]
 
-        return data
+        return bytes(data)
         
    
     def send_and_receive(self, message : str):
@@ -65,11 +65,11 @@ class DatagramTCPClient(EchoTCPClient):
         amount_received = 0
         amount_expected = len(message)
 
-        data = ''
+        data = b''
         
         while amount_received < amount_expected:
 
-            data += str(self.recv())          
+            data += self.recv()
             amount_received += len(data)
 
             print(f'data received {data}')

@@ -26,7 +26,7 @@ class RPCBase:
 
 
     @staticmethod
-    def _decode(data : str) -> dict:
+    def _decode(data : bytes) -> dict:
         """ parse the dict from the json """
         return json.loads(data)
 
@@ -48,8 +48,7 @@ class RPCClient(RPCBase):
             returns an answer to that call """
 
         data = self.socket.send_and_receive(call)
-        return json.loads(data)
-
+        return self._decode(data)
 
     def read(self, **kwargs):
         """ send data to the socket, and decode the reply
@@ -57,8 +56,8 @@ class RPCClient(RPCBase):
         """
 
         reply = self._send_call(self._encode(dict(type='read',
-                                             id=str(uuid.uuid4()),
-                                             **kwargs)))
+                                                  id=str(uuid.uuid4()),
+                                                  **kwargs)))
 
         return reply.get('data', '')
 
@@ -69,8 +68,8 @@ class RPCClient(RPCBase):
         """
 
         reply = self._send_call(self._encode(dict(type='write',
-                                             id=str(uuid.uuid4()),
-                                             **kwargs)))
+                                                  id=str(uuid.uuid4()),
+                                                  **kwargs)))
 
         return reply.get('data', '')
 
@@ -141,4 +140,4 @@ class RPCServer(RPCBase, LocalImpl):
             raise ValueError('Call does not have the required parameters')
 
         return dict(id=call.get('id'),
-                    data=self.write(**call))
+                    data=int(self.write(**call)))

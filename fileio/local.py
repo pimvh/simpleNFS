@@ -31,7 +31,7 @@ class LocalImpl:
             return f.read(length)
 
         
-    def write(self, filename : str, offset : int, block : bytearray, **kwargs):
+    def write(self, filename : str, offset : int, block : bytes, **kwargs):
         """ Write data to a file.
         @param filename The file to write to.
         @param offset   The offset to write at.
@@ -52,6 +52,6 @@ class LocalImpl:
                 return -1
 
             f.seek(offset)
-            f.write(bytearray(block, 'utf-8'))
+            f.write(bytes(block, 'utf-8'))
 
             return len(block)
