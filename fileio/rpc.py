@@ -26,6 +26,10 @@ class RPCBase:
         if 'block' in data:
             data['block'] = data['block'].hex()
             print(data['block'])
+        
+        if 'data' in data:
+            data['data'] = data['data'].hex()
+            print(data['data'])
 
         return json.dumps(data)
 
@@ -39,7 +43,12 @@ class RPCBase:
         if 'block' in data:
             data['block'] = bytes.fromhex(data['block'])
             assert isinstance(data['block'], bytes)
+
+        if 'data' in data:
+            data['data'] = bytes.fromhex(data['data'])
+            assert isinstance(data['data'], bytes)
         
+
         return data
 
 class RPCClient(RPCBase):
