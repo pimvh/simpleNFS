@@ -128,7 +128,7 @@ class RPCServer(RPCBase, LocalImpl):
             raise ValueError('Call does not have the required parameters')
 
         return dict(id=call.get('id'),
-                    data=self.read(**call))
+                    data=str(self.read(**call)))
 
     
     def handle_write(self, call : dict) -> None:
@@ -140,4 +140,4 @@ class RPCServer(RPCBase, LocalImpl):
             raise ValueError('Call does not have the required parameters')
 
         return dict(id=call.get('id'),
-                    data=int(self.write(**call)))
+                    data=self.write(**call))
